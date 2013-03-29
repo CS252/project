@@ -4,6 +4,26 @@ session_start();
 
 require_once('config.inc.php');
 require_once('functions.inc.php');
+require_once('establish_db_user_connection.php');
+
+if($connection==1){
+	$picid = $mysqli->real_escape_string($_SESSION['username'] . time(). $_FILES["file"]["name"]);
+	$userid = $mysqli->real_escape_string($_SESSION['username']);
+	$time = $mysqli->real_escape_string(date('d M Y H:i:s'));
+	
+	if(!isset($_POST['category']))
+	{
+		$category = "undefined";
+	}
+	else{
+		$category = $_POST['category'];
+	}
+	$class = $mysqli->real_escape_string($category);
+	$sql = "INSERT INTO pic_owner (picid, ownerid, time, class) VALUES ('". $picid ."', '". $userid ."', '". $time ."', '". $class ."' ) ";
+}
+
+
+
 
 if ($_FILES["file"]["error"] > 0)
   {
@@ -20,7 +40,8 @@ else
 
 <?php
 $allowedExts = array("gif", "jpeg", "jpg", "png");
-$extension = end(explode(".", $_FILES["file"]["name"]));
+$temp = explode(".", $_FILES["file"]["name"]);
+$extension = end($temp);
 if ((($_FILES["file"]["type"] == "image/gif")
 || ($_FILES["file"]["type"] == "image/jpeg")
 || ($_FILES["file"]["type"] == "image/jpg")
@@ -47,8 +68,7 @@ else
 ?>
 
 <?php
-$allowedExts = array("gif", "jpeg", "jpg", "png");
-$extension = end(explode(".", $_FILES["file"]["name"]));
+
 if ((($_FILES["file"]["type"] == "image/gif")
 || ($_FILES["file"]["type"] == "image/jpeg")
 || ($_FILES["file"]["type"] == "image/jpg")
@@ -76,11 +96,14 @@ if ((($_FILES["file"]["type"] == "image/gif")
       move_uploaded_file($_FILES["file"]["tmp_name"],
       "upload/" . $_SESSION['username'] . time() . $_FILES["file"]["name"]);
       echo "Stored in: " . "upload/" . $_FILES["file"]["name"];
+	  $result = $mysqli->query($sql);
       }
+	  
     }
   }
 else
   {
   echo "Invalid file";
+  
   }
 ?>

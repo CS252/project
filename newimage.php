@@ -56,49 +56,53 @@ if($connection==1){
     ================================================== -->
  <div class="navbar navbar-fixed-top">
    <div class="navbar-inner">
-     <div class="container" style="width: auto;">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </a>
-        <a class="brand" href="#">Project name</a>
-        <div class="nav-collapse">
-          <ul class="nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="newimage.php">upload a file</a></li>
-            <li><a href="myuploads.php">myupoads</a></li>
-            <li><a href="#">Link</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-          <form class="navbar-search pull-left" action="">
-            <input type="text" class="search-query span2" placeholder="Search">
-          </form>
-          <ul class="nav pull-right">
-            <li><a href="logout.inc.php">Logout</a></li>
-            <li class="divider-vertical"></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div><!-- /.nav-collapse -->
-      </div>
+     <div class="container">
+       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </a>
+       <a class="brand" href="/">Bootswatch</a>
+       <div class="nav-collapse collapse" id="main-menu">
+        <ul class="nav" id="main-menu-left">
+          <li><a onclick="pageTracker._link(this.href); return false;" href="http://news.bootswatch.com">News</a></li>
+          <li><a id="swatch-link" href="/#gallery">Gallery</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Preview <b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="/default">Default</a></li>
+              <li class="divider"></li>
+              <li><a href="/amelia">Amelia</a></li>
+              <li><a href="/cerulean">Cerulean</a></li>
+              <li><a href="/cosmo">Cosmo</a></li>
+              <li><a href="/cyborg">Cyborg</a></li>
+              <li><a href="/journal">Journal</a></li>
+              <li><a href="/readable">Readable</a></li>
+              <li><a href="/simplex">Simplex</a></li>
+              <li><a href="/slate">Slate</a></li>
+              <li><a href="/spacelab">Spacelab</a></li>
+              <li><a href="/spruce">Spruce</a></li>
+              <li><a href="/superhero">Superhero</a></li>
+              <li><a href="/united">United</a></li>
+            </ul>
+          </li>
+          <li class="dropdown" id="preview-menu">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Download <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a target="_blank" href="bootstrap.min.css">bootstrap.min.css</a></li>
+              <li><a target="_blank" href="bootstrap.css">bootstrap.css</a></li>
+              <li class="divider"></li>
+              <li><a target="_blank" href="variables.less">variables.less</a></li>
+              <li><a target="_blank" href="bootswatch.less">bootswatch.less</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav pull-right" id="main-menu-right">
+          <li><a rel="tooltip" target="_blank" href="http://builtwithbootstrap.com/" title="Showcase of Bootstrap sites &amp; apps" onclick="_gaq.push(['_trackEvent', 'click', 'outbound', 'builtwithbootstrap']);">Built With Bootstrap <i class="icon-share-alt"></i></a></li>
+          <li><a rel="tooltip" target="_blank" href="https://wrapbootstrap.com/?ref=bsw" title="Marketplace for premium Bootstrap templates" onclick="_gaq.push(['_trackEvent', 'click', 'outbound', 'wrapbootstrap']);">WrapBootstrap <i class="icon-share-alt"></i></a></li>
+        </ul>
+       </div>
+     </div>
    </div>
  </div>
     <div class="container">
@@ -141,44 +145,11 @@ if($connection==1){
     </ul>
   </div>
 </header>
+ 
 
 <!-- Images
 ==================================== -->
 
-<section id="typography">
-
-<h1>Popular Categories</h1>
-  
-
-<div id="container" class="clearfix">
-  <?php
-  
-	$sql_class='SELECT DISTINCT class FROM pic_owner';
-	$result_class = $mysqli->query($sql_class);
-	
-	while($row_class = mysqli_fetch_array($result_class, MYSQL_ASSOC))
-	{
-		echo '<div><font style="color:#000000"> &nbsp;&nbsp;&nbsp;<h2>'.$row_class['class'].'</h2>';
-		
-		$current_class = $mysqli->real_escape_string($row_class['class']);
-		$sql = "SELECT * FROM pic_owner where class = '".$current_class."'";
-		$result = $mysqli->query($sql);
-		
-		while($row_inside = mysqli_fetch_array($result, MYSQL_ASSOC))
-		{
-			$picid= $row_inside['picid'];
-			$userid= $row_inside['ownerid'];
-			echo ' <div class="box photo col3">
-				<a href="#" title="'.$userid.'"><img src="upload/'.$picid.'" alt="Stanley" /></a>
-			</div>';
-		  
-		}
-		mysqli_free_result($result);
-		echo '</font></div><br/><br/><br/><br/><br/><br/>';
-	}
-	mysqli_free_result($result_class);
-  ?>
-  </div> <!-- #container -->
 
 
 <script>
@@ -220,6 +191,86 @@ if($connection==1){
 
 </section>
 
+
+
+
+
+
+
+<!-- Forms
+================================================== -->
+</div>
+	<p>You are currently logged in. You may want to logout using the button</p>
+	<p><a href="logout.inc.php">Log Out</a></p>
+</div>
+<section id="forms">
+  <div class="page-header">
+    <h1>Uploads</h1>
+  </div>
+
+  <div class="row">
+    <div class="span10 offset1">
+
+	   
+
+      <form class="form-horizontal well" method="post" action="processinput.php" enctype="multipart/form-data">
+        <fieldset>
+          <legend>Upload your image</legend>
+          
+         
+          <div class="control-group">
+            <label class="control-label" for="category">Select category</label>
+            <div class="controls">
+              <select id="category" name="category">
+                <?php
+					$sql_class='SELECT DISTINCT class FROM pic_owner';
+					$result_class = $mysqli->query($sql_class);
+				//	echo '<select name="category">';		
+					while($row_class = mysqli_fetch_array($result_class, MYSQL_ASSOC))
+					{
+						echo '<option value="'.$row_class['class'].'">'.$row_class['class'].'</option>';
+					}
+				//	echo '</select>'; 
+
+					mysqli_free_result($result_class);
+					?>
+              </select>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="input01">Request category</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="input01">
+              <p class="help-block">You can request a new category by admin</p>
+            </div>
+          </div>
+          <div class="control-group">
+				<!--	<label for="file">Filename:</label>
+					<input type="file" name="file" id="file"><br>
+					<label for="category">Category:</label>  
+					<form action="processinput.php" method="post" enctype="multipart/form-data">
+<label for="file">Filename:</label>
+<input type="file" name="file" id="file"><br>-->
+					
+		  
+            <label class="control-label" for="file">Upload File</label>
+            <div class="controls">
+              <input class="input-file" id="file" type="file" name="file">
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Done</button>
+            <button type="reset" class="btn">Cancel</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
+</section>
+
+<br><br><br><br>
 
      <!-- Footer
       ================================================== -->

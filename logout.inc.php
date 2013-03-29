@@ -1,5 +1,8 @@
 <?php
 
+
+setcookie('username', '', time()-60*60*24*365);
+setcookie('password', '', time()-60*60*24*365);
 session_start();
 
 
@@ -11,8 +14,8 @@ if(check_login_status() == false){
 
 	unset($_SESSION['logged_in']);
 	unset($_SESSION['username']);
-	
 	session_destroy();
+	redirect('login.php');
 }
 ?>
 

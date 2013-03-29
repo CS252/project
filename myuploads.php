@@ -147,34 +147,27 @@ if($connection==1){
 
 <section id="typography">
 
-<h1>Popular Categories</h1>
+<h1>Your uploads</h1>
   
 
 <div id="container" class="clearfix">
   <?php
   
-	$sql_class='SELECT DISTINCT class FROM pic_owner';
+	$user = $mysqli->real_escape_string($_SESSION['username']);
+	$sql_class="SELECT * FROM pic_owner	where ownerid = '".$user."'";
 	$result_class = $mysqli->query($sql_class);
 	
-	while($row_class = mysqli_fetch_array($result_class, MYSQL_ASSOC))
+	while($row = mysqli_fetch_array($result_class, MYSQL_ASSOC))
 	{
-		echo '<div><font style="color:#000000"> &nbsp;&nbsp;&nbsp;<h2>'.$row_class['class'].'</h2>';
 		
-		$current_class = $mysqli->real_escape_string($row_class['class']);
-		$sql = "SELECT * FROM pic_owner where class = '".$current_class."'";
-		$result = $mysqli->query($sql);
-		
-		while($row_inside = mysqli_fetch_array($result, MYSQL_ASSOC))
-		{
-			$picid= $row_inside['picid'];
-			$userid= $row_inside['ownerid'];
+			$picid= $row['picid'];
+			$userid= $row['ownerid'];
+			echo $picid;
+			echo $userid;
 			echo ' <div class="box photo col3">
 				<a href="#" title="'.$userid.'"><img src="upload/'.$picid.'" alt="Stanley" /></a>
 			</div>';
-		  
-		}
-		mysqli_free_result($result);
-		echo '</font></div><br/><br/><br/><br/><br/><br/>';
+		
 	}
 	mysqli_free_result($result_class);
   ?>

@@ -20,7 +20,7 @@ if(isset($_SESSION['logged_in'])  == true) {
 	}
 		
 
-	$mysqli = new mysqli(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+	$mysqli = new mysqli(DB_HOSTNAME_USER, DB_USERNAME_USER, DB_PASSWORD_USER, DB_DATABASE_USER);
 
 	if (mysqli_connect_errno()) {
 			printf("Unable to connect to database: %s",mysqli_connect_error);
@@ -29,7 +29,7 @@ if(isset($_SESSION['logged_in'])  == true) {
 
 	$username = $mysqli->real_escape_string($_POST['username']);
 	$password = $mysqli->real_escape_string($_POST['password']);
-	echo "fcuk";
+	
 	$sql = "INSERT INTO users (username, password) VALUES ('". $username ."', '". MD5($password) ."' ) ";
 	$result = $mysqli->query($sql);
 

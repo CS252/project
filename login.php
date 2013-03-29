@@ -1,4 +1,7 @@
 <?php
+session_start();
+require_once('functions.inc.php');
+
 if(isset($_SESSION['logged_in'])  == true) {
 	if($_SESSION['logged_in'] == true){
 	redirect('index.php');
@@ -22,8 +25,9 @@ if(isset($_SESSION['logged_in'])  == true) {
 
 	<form id="login-form" action="login.inc.php" method="post">
 		<fieldset>
-		
+			
 			<legend>Log in</legend>
+			
 			
 			<label for="login">Username</label>
 			<input type="text" id="username" name="username"/>
